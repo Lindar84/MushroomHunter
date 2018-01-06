@@ -9,6 +9,8 @@
 <my:pagetemplate title="New mushroom">
 <jsp:attribute name="body">
 
+    <c:set var="end" value="mushrooms"/>
+
     <form:form method="post" action="${pageContext.request.contextPath}/mushrooms/new"
                modelAttribute="mushroomCreate" cssClass="form-horizontal">
          <div class="form-group ${name_error?'has-error':''}">
@@ -37,12 +39,13 @@
                <form:errors path="intervalOfOccurrence" cssClass="help-block"/>
            </div>
        </div>
+
       <button class="btn btn-primary" type="submit">Save mushroom</button>
     </form:form>
 
-  <button class="btn btn-primary"
-          onclick="location.href='${pageContext.request.contextPath}/${end}'">
-      Return
-  </button>
+     <button class="btn btn-primary"
+             onclick="location.href='${pageContext.request.contextPath}/${end}'">
+         Return
+     </button>
 </jsp:attribute>
 </my:pagetemplate>

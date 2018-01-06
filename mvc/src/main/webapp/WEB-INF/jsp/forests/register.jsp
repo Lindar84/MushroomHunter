@@ -8,6 +8,7 @@
 <my:pagetemplate title="New Forest">
 <jsp:attribute name="body">
 
+    <c:set var="end" value="forests"/>
     <form:form method="post" action="${pageContext.request.contextPath}/forests/new/"
                modelAttribute="forestCreate" cssClass="form-horizontal">
 
@@ -30,5 +31,9 @@
           <button class="btn btn-primary" type="submit">Save Forest</button>
 
 </form:form>
+    <button class="btn btn-primary"
+            onclick="location.href='${pageContext.request.contextPath}/${end}'">
+        Return
+    </button>
 </jsp:attribute>
 </my:pagetemplate>

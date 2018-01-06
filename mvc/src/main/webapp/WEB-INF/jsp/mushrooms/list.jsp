@@ -24,10 +24,6 @@
             }
         </script>
 
-        <button class="btn btn-primary"
-                onclick="location.href='${pageContext.request.contextPath}/${end}/new'">
-            New mushroom
-        </button>
 
         <table class="table table-striped">
             <caption>Mushrooms</caption>
@@ -82,10 +78,15 @@
             </tbody>
         </table>
 
-      <button class="btn"
+      <button class="btn btn-primary"
               onclick="location.href='${pageContext.request.contextPath}'">
           Return
       </button>
+
+        <button class="btn btn-primary"
+                onclick="location.href='${pageContext.request.contextPath}/${end}/new'">
+            New mushroom
+        </button>
 
     </jsp:attribute>
 </my:pagetemplate>

@@ -29,6 +29,9 @@
 
       <button class="btn btn-primary" type="submit">Update Forest</button>
     </form:form>
-
+  <button class="btn btn-primary"
+          onclick="location.href='${pageContext.request.contextPath}/${end}'">
+    Return
+  </button>
 </jsp:attribute>
 </my:pagetemplate>

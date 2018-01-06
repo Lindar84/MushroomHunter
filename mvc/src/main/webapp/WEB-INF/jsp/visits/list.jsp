@@ -67,12 +67,12 @@
             </tbody>
         </table>
 
-        <button class="btn"
+        <button class="btn btn-primary"
               onclick="location.href='${pageContext.request.contextPath}'">
             Return
         </button>
 
-        <button class="btn" onclick="location.href='${pageContext.request.contextPath}/visits/create'">
+        <button class="btn btn-primary" onclick="location.href='${pageContext.request.contextPath}/visits/create'">
             Record a new visit
         </button>
 

@@ -87,7 +87,7 @@
       <c:out value="${hunter.personalInfo}"/>
     </pre>
     <%-- create visit button --%>
-    <button class="btn" onclick="location.href='${pageContext.request.contextPath}/visits/create'">
+    <button class="btn btn-primary" onclick="location.href='${pageContext.request.contextPath}/visits/create'">
         Record a new visit <%--TODO: pre-fill form with this hunter --%>
     </button>
     

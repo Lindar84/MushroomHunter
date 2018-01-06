@@ -56,7 +56,7 @@
       <button class="btn btn-primary" type="submit">Update User</button>
     </form:form>
 
-  <button class="btn"
+  <button class="btn btn-primary"
           onclick="location.href='${pageContext.request.contextPath}/${end}'">
     Return
   </button>

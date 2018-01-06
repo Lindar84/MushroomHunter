@@ -8,6 +8,7 @@
 <my:pagetemplate title="Register new Visit">
 <jsp:attribute name="body">
 
+    <c:set var="end" value="visits"/>
     <form:form method="post" action="${pageContext.request.contextPath}/visits/create/"
                modelAttribute="registerVisit" cssClass="form-horizontal">
 
@@ -62,6 +63,10 @@
 
       <button class="btn btn-primary" type="submit">Register new visit</button>
     </form:form>
+    <button class="btn btn-primary"
+            onclick="location.href='${pageContext.request.contextPath}/${end}'">
+        Return
+    </button>
 
 </jsp:attribute>
 </my:pagetemplate>
