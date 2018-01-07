@@ -64,18 +64,24 @@ public class HunterController {
 
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
     public String delete(@PathVariable long id, Model model, HttpServletRequest request, UriComponentsBuilder uriBuilder, RedirectAttributes redirectAttributes) {
-        String res = Tools.redirectNonAdmin(request, uriBuilder, redirectAttributes);
-        if(res != null) return res;
+        Long idToDelete = id;
+        MushroomHunterDTO logUser = (MushroomHunterDTO) request.getSession().getAttribute("user");
 
         MushroomHunterDTO hunter = hunterFacade.findHunterById(id);
         hunterFacade.deleteHunter(id);
         log.debug("delete hunter({})", id);
-        redirectAttributes.addFlashAttribute("alert_success", "User \"" + hunter.getUserNickname() + "\" was deleted.");
+
+        if (idToDelete.equals(logUser.getId())){
+            redirectAttributes.addFlashAttribute("alert_warning", "You have been logged out after your profile was deleted.");
+            return "redirect:" + uriBuilder.path("/auth/logout").build().toUriString();
+        }
+
+        redirectAttributes.addFlashAttribute("alert_success", "Mushroom hunter \"" + hunter.getUserNickname() + "\" was deleted.");
         return "redirect:" + uriBuilder.path("/hunters").build().toUriString();
     }
 
     @RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
-    public String editUser(@PathVariable long id, Model model, HttpServletRequest request, UriComponentsBuilder uriBuilder, RedirectAttributes redirectAttributes) {
+    public String editHunter(@PathVariable long id, Model model, HttpServletRequest request, UriComponentsBuilder uriBuilder, RedirectAttributes redirectAttributes) {
 
         MushroomHunterDTO logUser = (MushroomHunterDTO) request.getSession().getAttribute("user");
 
@@ -128,6 +134,11 @@ public class HunterController {
 
         log.debug("[HUNTER] Update: {}", formBean);
         MushroomHunterDTO result = hunterFacade.updateHunter(formBean);
+
+        // updating self - change redirect
+        if (logUser.getId().equals(formBean.getId())){
+            request.getSession().setAttribute("user", hunterFacade.findHunterById(result.getId()));
+        }
 
         redirectAttributes.addFlashAttribute("alert_success", "Hunter " + result.getUserNickname() + " was updated");
         return "redirect:" + uriBuilder.path("/hunters/read/{id}").buildAndExpand(id).encode().toUriString();

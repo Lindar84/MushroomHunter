@@ -7,8 +7,8 @@
 <c:set var="forests_path" value="forests"/>
 <c:set var="mushrooms_path" value="mushrooms"/>
 
-<table class="table table-striped">
-    <caption><c:out value="${tableName}"/></caption>
+<table class="table table-striped" id="visitTable">
+    <label for="visitTable"><h4>${tableName}</h4></label>
     <thead>
     <tr>
         <th>Date</th>

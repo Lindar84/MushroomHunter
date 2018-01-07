@@ -5,7 +5,7 @@
 <%@ taglib prefix="s" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
-<my:pagetemplate title="Hunters">
+<my:pagetemplate title="Mushroom Hunters">
     <jsp:attribute name="body">
       <c:set var="end" value="hunters"/>
 
@@ -24,14 +24,15 @@
         </script>
 
         <table class="table table-striped">
-          <caption>Mushroom hunters</caption>
           <thead>
           <tr>
             <th>Name</th>
             <th>Nick</th>
             <th>Admin?</th>
+              <my:protected>
             <th>Delete</th>
             <th>Update</th>
+              </my:protected>
           </tr>
           </thead>
           <tbody>
@@ -53,6 +54,7 @@
                         </c:otherwise>
                         </c:choose>
                   </td>
+                    <my:protected>
                   <td>
                     <button class="glyphicon glyphicon-trash btn" onclick=" openModal(${hunter.id}) ">
                     </button>
@@ -78,6 +80,7 @@
                     <button class="glyphicon glyphicon-edit btn" onclick="location.href='${pageContext.request.contextPath}/${end}/edit/${hunter.id}'">
                     </button>
                   </td>
+                    </my:protected>
                 </tr>
             </c:forEach>
           </tbody>

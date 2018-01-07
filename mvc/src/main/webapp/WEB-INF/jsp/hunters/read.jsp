@@ -5,7 +5,18 @@
 <%@ taglib prefix="s" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
-<my:pagetemplate title="Hunter Profile">
+
+<c:choose>
+    <c:when test="${hunter.id == sessionScope.user.id}">
+        <c:set var="pageTitle" value="My profile" scope="page"/>
+    </c:when>
+    <c:otherwise>
+        <c:set var="pageTitle" value="Profile of ${hunter.firstName} ${hunter.surname}" scope="page"/>
+    </c:otherwise>
+</c:choose>
+
+
+<my:pagetemplate title="${pageTitle}">
 <jsp:attribute name="body">
     <c:set var="end" value="hunters"/>
     <script>
@@ -23,19 +34,20 @@
     </script>
 
     <table class="table"> <%-- TODO: change size, add create visit button--%>
-        <caption>Mushroom hunter '<c:out value="${hunter.userNickname}"/>'</caption>
+
         <thead>
         <tr>
             <th>Name</th>
             <th>Nick</th>
             <th>Admin?</th>
-            <th>Delete</th>
-            <th>Update</th>
+            <c:if test="${sessionScope.user.admin or sessionScope.user.id == hunter.id}">
+                <th>Delete</th>
+                <th>Update</th>
+            </c:if>
         </tr>
         </thead>
 
         <tbody>
-        <tr>
             <td>
                 <my:a href="/${end}/read/${hunter.id}"><c:out value="${hunter.firstName} "/><c:out value="${hunter.surname}"/> </my:a>
             </td>
@@ -52,12 +64,13 @@
                     </c:otherwise>
                     </c:choose>
             </td>
+            <c:if test="${sessionScope.user.admin or sessionScope.user.id == hunter.id}">
             <td>
                 <button class="glyphicon glyphicon-trash btn" onclick=" openModal(${hunter.id}) ">
                 </button>
 
 
-                <my:modal_template suffix="${hunter.id}" title="Delete user">
+                <my:modal_template suffix="${hunter.id}" title="Delete hunter">
                   <jsp:attribute name="body">
                       <strong>Are you sure you want to delete mushroom hunter '<c:out
                               value="${hunter.userNickname}"/>'?</strong>
@@ -79,22 +92,31 @@
                         onclick="location.href='${pageContext.request.contextPath}/${end}/edit/${hunter.id}'">
                 </button>
             </td>
+            </c:if>
+
         </tr>
         </tbody>
     </table>
+
     <%-- personal info --%>
-    <pre>
-      <c:out value="${hunter.personalInfo}"/>
-    </pre>
+    <c:if test="${not empty hunter.personalInfo}">
+        <label for="hunterInfo">About me</label>
+        <blockquote class="blockquote" id="hunterInfo">
+            <p><c:out value="${hunter.personalInfo}"/></p>
+        </blockquote>
+    </c:if>
+
     <%-- create visit button --%>
-    <button class="btn btn-primary" onclick="location.href='${pageContext.request.contextPath}/visits/create'">
-        Record a new visit <%--TODO: pre-fill form with this hunter --%>
-    </button>
-    
+    <c:if test="${sessionScope.user.id == hunter.id}">
+        <button class="btn btn-primary" onclick="location.href='${pageContext.request.contextPath}/visits/create'">
+            Record a new visit
+        </button>
+    </c:if>
+
     <%-- visits --%>
-    <pre>
-        <my:visit_table_template tableName="${hunter.userNickname}'s visits"/>
-    </pre>
+    <div style="margin-top:20px" >
+        <my:visit_table_template tableName="Recorded visits"/>
+    </div>
 
 </jsp:attribute>
 </my:pagetemplate>
