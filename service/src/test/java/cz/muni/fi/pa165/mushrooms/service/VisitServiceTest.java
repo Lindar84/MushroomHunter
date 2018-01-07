@@ -30,7 +30,6 @@ import java.util.Map;
 import static cz.muni.fi.pa165.mushrooms.service.TestUtils.*;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.junit.Assert.*;
 
 /**
  * Extensive tests for service layer related to Visit entity.
@@ -336,7 +335,7 @@ public class VisitServiceTest extends AbstractTransactionalJUnit4SpringContextTe
 
     @Test
     public void updateVisit_valid_addMushroom() {
-        Mushroom newMushroom = createMushroom("New", MushroomType.UNEDIBLE, "October", "October");
+        Mushroom newMushroom = createMushroom("New", MushroomType.INEDIBLE, "October", "October");
         visit1.addMushroom(newMushroom);
         service.updateVisit(visit1);
 

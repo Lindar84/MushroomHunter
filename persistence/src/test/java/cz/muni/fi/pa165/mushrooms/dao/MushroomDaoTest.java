@@ -80,7 +80,7 @@ public class MushroomDaoTest extends AbstractTransactionalJUnit4SpringContextTes
 
     @Test
     public void create() throws Exception {
-        Mushroom mushroom = createMushroom("WeirdMushroom", MushroomType.UNEDIBLE, "May", "July");
+        Mushroom mushroom = createMushroom("WeirdMushroom", MushroomType.INEDIBLE, "May", "July");
         mushroomDao.create(mushroom);
 
         List<Mushroom> list = em.createQuery("select m from Mushroom m", Mushroom.class)
@@ -92,7 +92,7 @@ public class MushroomDaoTest extends AbstractTransactionalJUnit4SpringContextTes
 
     @Test
     public void create_nullName() throws Exception {
-        Mushroom mushroom = createMushroom(null, MushroomType.UNEDIBLE, "May", "July");
+        Mushroom mushroom = createMushroom(null, MushroomType.INEDIBLE, "May", "July");
 
         assertThatThrownBy(() -> mushroomDao.create(mushroom)).isInstanceOf(ConstraintViolationException.class);
     }
@@ -107,14 +107,14 @@ public class MushroomDaoTest extends AbstractTransactionalJUnit4SpringContextTes
     // TODO this string validation is not implemented yet - tests prepared for the future
 //    @Test
 //    public void create_nullBeginMonth() throws Exception {
-//        Mushroom mushroom = createMushroom("WierdMushroom", MushroomType.UNEDIBLE, null, "July");
+//        Mushroom mushroom = createMushroom("WierdMushroom", MushroomType.INEDIBLE, null, "July");
 //
 //        assertThatThrownBy(() -> mushroomDao.create(mushroom)).isInstanceOf(ConstraintViolationException.class);
 //    }
 //
 //    @Test
 //    public void create_nullLastMonth() throws Exception {
-//        Mushroom mushroom = createMushroom("WierdMushroom", MushroomType.UNEDIBLE, "June", null);
+//        Mushroom mushroom = createMushroom("WierdMushroom", MushroomType.INEDIBLE, "June", null);
 //
 //        assertThatThrownBy(() -> mushroomDao.create(mushroom)).isInstanceOf(ConstraintViolationException.class);
 //    }
@@ -139,7 +139,7 @@ public class MushroomDaoTest extends AbstractTransactionalJUnit4SpringContextTes
 
     @Test
     public void delete_entityNotPersisted() throws Exception {
-        Mushroom mush = createMushroom("mush", MushroomType.UNEDIBLE, "May", "June");
+        Mushroom mush = createMushroom("mush", MushroomType.INEDIBLE, "May", "June");
         mushroomDao.delete(mush); // should not do anything
         em.flush();
         assertThat(mushroomDao.findAll()).containsExactlyInAnyOrder(mushroom1, mushroom2);
@@ -190,7 +190,7 @@ public class MushroomDaoTest extends AbstractTransactionalJUnit4SpringContextTes
 
     @Test
     public void findByMushroomType_empty() throws Exception {
-        List<Mushroom> list = mushroomDao.findByMushroomType(MushroomType.UNEDIBLE);
+        List<Mushroom> list = mushroomDao.findByMushroomType(MushroomType.INEDIBLE);
         assertThat(list).isEmpty();
     }
 

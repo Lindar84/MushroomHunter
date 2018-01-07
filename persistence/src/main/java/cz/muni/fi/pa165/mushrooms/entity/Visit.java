@@ -10,6 +10,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -41,8 +43,10 @@ public class Visit {
     @JoinColumn(name = "visit_forest", nullable = false)
     private Forest forest;
 
-    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    //@JoinColumn(name = "visit_mushroom", nullable = true) // join column on one to many? o.O
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinTable(name = "visit_mushrooms",
+            joinColumns=@JoinColumn(name="visit_id"),
+            inverseJoinColumns=@JoinColumn(name="mushroom_id"))
     private List<Mushroom> mushrooms = new ArrayList<>();
 
     @NotNull
@@ -139,10 +143,19 @@ public class Visit {
 
     @Override
     public String toString() {
+        StringBuilder mushrooms_string = new StringBuilder();
+        boolean first = true;
+        for (Mushroom m : mushrooms){
+            if (!first){
+                mushrooms_string.append(", ");
+            }
+            mushrooms_string.append(m.getName());
+            first = false;
+        }
         return "Visit{" +
                 "hunter=" + hunter +
                 ", forest=" + forest +
-                ", mushrooms=" + mushrooms +
+                ", mushrooms=" + mushrooms_string.toString() +
                 ", date=" + date +
                 ", note='" + note + '\'' +
                 '}';

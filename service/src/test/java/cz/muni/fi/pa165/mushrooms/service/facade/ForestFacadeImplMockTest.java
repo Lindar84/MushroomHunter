@@ -1,7 +1,6 @@
 package cz.muni.fi.pa165.mushrooms.service.facade;
 
 import cz.muni.fi.pa165.mushrooms.dto.ForestDTO;
-import cz.muni.fi.pa165.mushrooms.dto.MushroomDTO;
 import cz.muni.fi.pa165.mushrooms.entity.Forest;
 import cz.muni.fi.pa165.mushrooms.entity.Mushroom;
 import cz.muni.fi.pa165.mushrooms.enums.MushroomType;
@@ -23,10 +22,8 @@ import org.springframework.test.context.junit4.AbstractTransactionalJUnit4Spring
 import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
 
 import javax.inject.Inject;
-import javax.validation.ConstraintViolationException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -142,7 +139,7 @@ public class ForestFacadeImplMockTest extends AbstractTransactionalJUnit4SpringC
             result = new Delegate() {
                 Mushroom foo(Long id) {
                     Mushroom m = new Mushroom();
-                    m.setType(MushroomType.UNEDIBLE);
+                    m.setType(MushroomType.INEDIBLE);
                     m.setName("Dont eat me");
                     m.setId(id);
 

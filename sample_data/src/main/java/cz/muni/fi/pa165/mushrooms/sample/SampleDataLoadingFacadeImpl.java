@@ -74,11 +74,11 @@ public class SampleDataLoadingFacadeImpl implements SampleDataLoadingFacade {
     private void loadMushrooms() {
         log.info("Creating mushrooms");
         createMushroom("Dubak", MushroomType.EDIBLE, "march", "june");
-        createMushroom("Plavka", MushroomType.UNEDIBLE, "april", "september");
+        createMushroom("Plavka", MushroomType.INEDIBLE, "april", "september");
         createMushroom("Muchotravka", MushroomType.POISONOUS, "july", "december");
         createMushroom("MagicShroom", MushroomType.EDIBLE, "january", "december");
         createMushroom("PoisonShroom", MushroomType.POISONOUS, "december", "january");
-        createMushroom("DoNotEatMe", MushroomType.UNEDIBLE, "october", "april");
+        createMushroom("DoNotEatMe", MushroomType.INEDIBLE, "october", "april");
         log.info("Mushrooms has been created!");
     }
 

@@ -11,7 +11,6 @@ import mockit.*;
 import org.dozer.Mapper;
 import org.junit.Before;
 import org.junit.Test;
-import org.springframework.dao.DataAccessException;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.AbstractTransactionalJUnit4SpringContextTests;
@@ -175,14 +174,14 @@ public class MushroomFacadeImplMockTest extends AbstractTransactionalJUnit4Sprin
     public void findMushroomByTypeTest() {
         assertThat(facade.findByMushroomType(mushroom1.getType())).containsExactly(mushroom1DTO);
         assertThat(facade.findByMushroomType(mushroom2.getType())).containsExactly(mushroom2DTO);
-        assertThat(facade.findByMushroomType(MushroomType.UNEDIBLE)).isEmpty();
+        assertThat(facade.findByMushroomType(MushroomType.INEDIBLE)).isEmpty();
     }
 
     @Test
     public void findByMushroomTypeTest() {
         assertThat(facade.findByMushroomType(MushroomType.POISONOUS)).containsExactly(mushroom2DTO);
         assertThat(facade.findByMushroomType(MushroomType.EDIBLE)).containsExactly(mushroom1DTO);
-        assertThat(facade.findByMushroomType(MushroomType.UNEDIBLE)).isEmpty();
+        assertThat(facade.findByMushroomType(MushroomType.INEDIBLE)).isEmpty();
     }
 
     @Test

@@ -1,11 +1,8 @@
 package cz.muni.fi.pa165.mushrooms.service;
 
 import cz.muni.fi.pa165.mushrooms.dao.MushroomDao;
-import cz.muni.fi.pa165.mushrooms.dao.VisitDao;
 import cz.muni.fi.pa165.mushrooms.entity.Mushroom;
 import cz.muni.fi.pa165.mushrooms.enums.MushroomType;
-import cz.muni.fi.pa165.mushrooms.service.exceptions.EntityFindServiceException;
-import cz.muni.fi.pa165.mushrooms.service.exceptions.EntityOperationServiceException;
 import mockit.Delegate;
 import mockit.Expectations;
 import mockit.Injectable;
@@ -122,9 +119,9 @@ public class MushroomServiceImplTest {
     public void setUp() {
 
         database = new MockDatabase();
-        mushroom1 = setupMushroom("some", MushroomType.UNEDIBLE, "june", "july");
+        mushroom1 = setupMushroom("some", MushroomType.INEDIBLE, "june", "july");
         mushroom2 = setupMushroom("other", MushroomType.POISONOUS, "june", "july");
-        mushroom3 = setupMushroom("different", MushroomType.UNEDIBLE, "may", "september");
+        mushroom3 = setupMushroom("different", MushroomType.INEDIBLE, "may", "september");
 
 
         new Expectations() {{

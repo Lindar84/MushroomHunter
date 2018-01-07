@@ -116,7 +116,7 @@ public class ForestServiceImplTest {
         visit5 = createVisit(hunter, forest2, null);
         visit6 = createVisit(hunter, forest3, null);
 
-        shroom = createMushroom("Shroom", MushroomType.UNEDIBLE, "june", "july");
+        shroom = createMushroom("Shroom", MushroomType.INEDIBLE, "june", "july");
         visit1.addMushroom(shroom);
         visit2.addMushroom(shroom);
         visit3.addMushroom(shroom);

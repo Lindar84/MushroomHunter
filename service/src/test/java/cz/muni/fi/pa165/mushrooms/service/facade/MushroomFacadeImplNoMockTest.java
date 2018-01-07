@@ -82,7 +82,7 @@ public class MushroomFacadeImplNoMockTest extends AbstractTransactionalJUnit4Spr
     public void findByMushroomType() {
         assertThat(facade.findByMushroomType(MushroomType.POISONOUS)).containsExactly(mushroom1DTO);
         assertThat(facade.findByMushroomType(MushroomType.EDIBLE)).containsExactly(mushroom2DTO);
-        assertThat(facade.findByMushroomType(MushroomType.UNEDIBLE)).isEmpty();
+        assertThat(facade.findByMushroomType(MushroomType.INEDIBLE)).isEmpty();
     }
 
     @Test
@@ -119,13 +119,13 @@ public class MushroomFacadeImplNoMockTest extends AbstractTransactionalJUnit4Spr
         MushroomDTO update = new MushroomDTO();
         update.setId(mushroom1.getId());
         update.setName("toad");
-        update.setType(MushroomType.UNEDIBLE);
+        update.setType(MushroomType.INEDIBLE);
         update.setIntervalOfOccurrence("May - October");
         MushroomDTO updated = facade.updateMushroom(update);
 
         assertThat(updated.getId()).isEqualTo(mushroom1.getId());
         assertThat(updated.getName()).isEqualTo("toad");
-        assertThat(updated.getType()).isEqualTo(MushroomType.UNEDIBLE);
+        assertThat(updated.getType()).isEqualTo(MushroomType.INEDIBLE);
         assertThat(updated.getIntervalOfOccurrence()).isEqualTo("May - October");
     }
 

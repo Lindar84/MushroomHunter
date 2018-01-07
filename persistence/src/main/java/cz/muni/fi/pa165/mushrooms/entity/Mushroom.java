@@ -35,7 +35,7 @@ public class Mushroom {
      */
     @NotNull
     @Column(nullable = false)
-    private String intervalOfOccurrence;    //// TODO String - Date
+    private String intervalOfOccurrence;
 
     public Long getId() {
         return id;
