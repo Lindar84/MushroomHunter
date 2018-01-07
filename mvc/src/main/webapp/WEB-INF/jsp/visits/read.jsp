@@ -103,9 +103,6 @@
         </tr>
         </tbody>
     </table>
-    <button class="btn btn-primary" onclick="location.href='${pageContext.request.contextPath}/visits/create'">
-        Record a new visit
-    </button>
 
 </jsp:attribute>
 </my:pagetemplate>

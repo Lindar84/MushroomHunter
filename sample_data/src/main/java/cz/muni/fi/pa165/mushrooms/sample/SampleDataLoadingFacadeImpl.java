@@ -55,10 +55,17 @@ public class SampleDataLoadingFacadeImpl implements SampleDataLoadingFacade {
 
     private void loadVisits() {
         log.info("Creating visits.");
-        createVisit("First time visit", LocalDate.ofEpochDay(50), hunters.get("john"), forests.get("magic forest"));
-        createVisit("Last time visit", LocalDate.now(), hunters.get("dennis"), forests.get("deep forest"));
+        List<Mushroom> shrooms1 = new ArrayList<>();
+        shrooms1.add(mushrooms.get("dubak"));
+        shrooms1.add(mushrooms.get("plavka"));
+        List<Mushroom> shrooms2 = new ArrayList<>();
+        shrooms2.add(mushrooms.get("dubak"));
+        shrooms2.add(mushrooms.get("poisonshroom"));
+
+        createVisit("First time visit", LocalDate.ofEpochDay(50), hunters.get("john"), forests.get("magic forest"), shrooms1);
+        createVisit("Last time visit", LocalDate.now(), hunters.get("dennis"), forests.get("deep forest"), shrooms2);
         createVisit("Some other visit", LocalDate.ofEpochDay(2200), hunters.get("benny"), forests.get("deep forest"));
-        createVisit("Some new visit", LocalDate.ofEpochDay(2300), hunters.get("benny"), forests.get("deep forest"), new ArrayList<Mushroom>(mushrooms.values()));
+        createVisit("Some new visit - has all mushrooms", LocalDate.ofEpochDay(2300), hunters.get("benny"), forests.get("deep forest"), new ArrayList<>(mushrooms.values()));
         log.info("Visits have been created!");
     }
 

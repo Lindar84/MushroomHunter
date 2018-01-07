@@ -52,9 +52,6 @@
     </div>
     <div class="collapse navbar-collapse">
       <ul class="nav navbar-nav">
-        <li><my:a href="/"><f:message key="navigation.home"/></my:a></li>
-
-
         <c:if test="${not empty sessionScope.user}">
           <c:if test="${sessionScope.user.admin}">
             <li><my:a href="/hunters/"><f:message key="navigation.admin.hunters"/></my:a></li>
