@@ -45,7 +45,7 @@
         <div class="form-group ${date_error?'has-error':''}">
             <form:label path="date" cssClass="col-sm-2 control-label">Date (YYYY-MM-DD)</form:label>
             <div class="form-group col-sm-10">
-                <div class='input-group date' id='datetimepicker1'>
+                <div class='input-group date' id='datetimepicker1' required="true">
                     <form:input  path="date" type='text' cssClass="form-control" />
                     <form:errors path="date" cssClass="help-block"/>
                     <span class="input-group-addon">
@@ -56,7 +56,9 @@
             <script type="text/javascript">
                 $(function () {
                     $('#datetimepicker1').datetimepicker({
-                        format:'YYYY-MM-DD'})
+                        format:'YYYY-MM-DD',
+                        maxDate: moment()
+                    })
                 });
             </script>
         </div>
