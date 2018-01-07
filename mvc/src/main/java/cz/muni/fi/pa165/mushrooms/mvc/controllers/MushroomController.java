@@ -125,6 +125,12 @@ public class MushroomController {
             }
             return "mushrooms/register";
         }
+
+        if(facade.findMushroomByName(formBean.getName()) != null){
+            redirectAttributes.addFlashAttribute("alert_warning", "Mushroom " + formBean.getName() + " already exists!");
+            return "redirect:" + uriBuilder.path("/mushrooms").build().toUriString();
+        }
+
         //create mushroom
         MushroomDTO createdDTO = facade.createMushroom(formBean);
         //report success
