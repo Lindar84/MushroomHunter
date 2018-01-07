@@ -86,7 +86,7 @@ public class SampleDataLoadingFacadeImpl implements SampleDataLoadingFacade {
         log.info("Creating Mushroom hunters");
         createHunter("John", "Snow");
         createHunter("Benny", "Newman");
-        createHunter("Anna", "Karenina","Russia4Ever!", false);
+        createHunter("Anna", "Karenina","Russia4Ever!", false, "This is me!");
         createHunter("Dennis", "Ritchie", true);
         createHunter("Admin", "Project", true);
         createHunter("George", "Miller", true);
@@ -94,15 +94,16 @@ public class SampleDataLoadingFacadeImpl implements SampleDataLoadingFacade {
     }
 
     private void createHunter(String name, String last) {
-        createHunter(name, last, DEFAULT_PASSWORD, false);
+        createHunter(name, last, DEFAULT_PASSWORD, false, null);
     }
 
     private void createHunter(String name, String last, boolean admin) {
-        createHunter(name, last, DEFAULT_PASSWORD, admin);
+        createHunter(name, last, DEFAULT_PASSWORD, admin, null);
     }
 
-    private void createHunter(String name, String last, String password, boolean admin) {
+    private void createHunter(String name, String last, String password, boolean admin, String personalInfo) {
         MushroomHunter hunter = new MushroomHunter();
+        hunter.setPersonalInfo(personalInfo);
         hunter.setFirstName(name);
         hunter.setSurname(last);
         hunter.setAdmin(admin);

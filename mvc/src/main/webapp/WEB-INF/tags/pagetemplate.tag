@@ -29,7 +29,6 @@
 
   <script src="${pageContext.request.contextPath}/resources/default/node_modules/jquery/dist/jquery.min.js"></script>
   <script src="${pageContext.request.contextPath}/resources/default/node_modules/bootstrap/dist/js/bootstrap.js"></script>
-  <script src="${pageContext.request.contextPath}/resources/default/node_modules/jquery/dist/jquery.js"></script>
   <script src="${pageContext.request.contextPath}/resources/default/node_modules/moment/moment.js"></script>
   <script src="${pageContext.request.contextPath}/resources/default/node_modules/bootstrap/js/collapse.js"></script>
   <script src="${pageContext.request.contextPath}/resources/default/node_modules/bootstrap/js/transition.js"></script>
