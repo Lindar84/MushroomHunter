@@ -58,7 +58,7 @@
         <div class="form-group ${mushrooms_error?'has-error':''}">
             <form:label path="mushrooms" cssClass="col-sm-2 control-label">Mushrooms found</form:label>
             <div class="col-sm-10">
-                <form:select path="mushrooms" name="mushrooms" multiple="true" items="${mushrooms}" itemLabel="name" itemValue="id"/>
+                <form:checkboxes path="mushrooms" items="${mushrooms}" itemLabel="name" itemValue="id" delimiter="<br/>"/>
                 <form:errors path="mushrooms" cssClass="help-block"/>
             </div>
         </div>

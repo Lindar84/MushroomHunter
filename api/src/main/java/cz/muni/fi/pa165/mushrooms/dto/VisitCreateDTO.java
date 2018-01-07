@@ -1,5 +1,6 @@
 package cz.muni.fi.pa165.mushrooms.dto;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.validation.constraints.NotNull;
@@ -15,7 +16,7 @@ public class VisitCreateDTO {
     @NotNull
     private String date;
     private String note;
-    private List<MushroomDTO> mushrooms;
+    private List<MushroomDTO> mushrooms = new ArrayList<>();
 
     public MushroomHunterDTO getHunter() {
         return hunter;

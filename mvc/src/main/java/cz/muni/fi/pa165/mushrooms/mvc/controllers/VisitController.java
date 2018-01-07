@@ -13,6 +13,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.propertyeditors.CustomCollectionEditor;
 import org.springframework.core.convert.ConversionService;
+import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -86,7 +87,6 @@ public class VisitController {
                            UriComponentsBuilder uriBuilder,
                            HttpServletRequest request) {
 
-
         if (bindingResult.hasErrors()) {
             for (ObjectError ge : bindingResult.getGlobalErrors()) {
                 log.debug("ObjectError: {}", ge);
@@ -102,9 +102,14 @@ public class VisitController {
             return "/visits/create";
         }
 
-
-        VisitDTO visit = visitFacade.createVisit(formBean);
-
+        VisitDTO visit;
+        try{
+            visit = visitFacade.createVisit(formBean);
+        } catch (Exception e){
+            log.warn("create of visit {} would cause db problems", formBean);
+            redirectAttributes.addFlashAttribute("alert_warning", "Duplicate visit.");
+            return "redirect:"+ uriBuilder.path("/visits/create").build().toUriString();
+        }
         redirectAttributes.addFlashAttribute("alert_success", "Register of new visit was successful");
         return "redirect:" + uriBuilder.path("/visits/read/{id}").buildAndExpand(visit.getId()).encode().toUriString();
     }
@@ -120,8 +125,6 @@ public class VisitController {
 
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
     public String delete(@PathVariable long id, Model model, HttpServletRequest request, UriComponentsBuilder uriBuilder, RedirectAttributes redirectAttributes) {
-
-        VisitDTO visit = visitFacade.findById(id);
         visitFacade.deleteVisit(id);
         log.debug("delete visit({})", id);
         redirectAttributes.addFlashAttribute("alert_success", "Visit was deleted.");
@@ -154,25 +157,34 @@ public class VisitController {
 
         formBean.setId(id);
 
-        log.debug("Visit - update");
+        log.info("Visit - update");
 
         if (bindingResult.hasErrors()) {
-            log.debug("Visit - has errors:");
+            log.warn("Visit - has errors:");
 
             for (ObjectError ge : bindingResult.getGlobalErrors()) {
-                log.debug("ObjectError: {}", ge);
+                log.warn("ObjectError: {}", ge);
             }
             for (FieldError fe : bindingResult.getFieldErrors()) {
                 model.addAttribute(fe.getField() + "_error", true);
-                log.debug("FieldError: {}", fe);
+                log.warn("FieldError: {}", fe);
             }
+            MushroomHunterDTO hunter = (MushroomHunterDTO) request.getSession().getAttribute("user");
+            model.addAttribute("hunter", hunter.getId());
+            model.addAttribute("forests", forestFacade.findAllForests());
+            model.addAttribute("mushrooms", mushroomFacade.findAllMushrooms());
             model.addAttribute("visitEdit", formBean);
             return "visits/edit";
         }
 
         log.debug("[VISIT] Update: {}", formBean);
-        visitFacade.updateVisit(formBean);
-
+        try {
+            visitFacade.updateVisit(formBean);
+        } catch (Exception e){
+            log.warn("edit of visit {} would cause db problems", formBean);
+            redirectAttributes.addFlashAttribute("alert_warning", "Duplicate visit.");
+            return "redirect:"+ uriBuilder.path("/visits/edit/{id}").buildAndExpand(id).encode().toUriString();
+        }
         redirectAttributes.addFlashAttribute("alert_success", "Visit was updated");
         return "redirect:" + uriBuilder.path("/visits/read/{id}").buildAndExpand(id).encode().toUriString();
     }
@@ -184,10 +196,10 @@ public class VisitController {
                     protected Object convertElement(Object element) {
                         if (element instanceof String) {
                             MushroomDTO mushroomDTO = mushroomFacade.findMushroomById(Long.decode((String) element));
-                            System.out.println("Looking up mushroom for id" + element + ":" + mushroomDTO);
+                            log.debug("Looking up mushroom for id" + element + ":" + mushroomDTO);
                             return mushroomDTO;
                         }
-                        System.err.println("Incompatible object: " + element);
+                        log.debug("Incompatible object: " + element);
                         return null;
                     }
                 });
