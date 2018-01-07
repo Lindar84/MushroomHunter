@@ -24,9 +24,19 @@
                 <my:a href="/${visits_path}/read/${visit.id}"><c:out value="${visit.date}"/> </my:a>
             </td>
             <td>
-                <my:a href="/${hunters_path}/read/${visit.hunter.id}"><c:out value="${visit.hunter.firstName} "/>
-                <c:out value="${visit.hunter.surname}"/></my:a>
+                <c:choose>
+                    <c:when test="${sessionScope.user.admin || visit.hunter.id == sessionScope.user.id}" >
+                        <my:a href="/hunters/read/${visit.hunter.id}">
+                            <c:out value="${visit.hunter.firstName} "/>
+                            <c:out value="${visit.hunter.surname}"/></my:a>
+                    </c:when>
+                    <c:otherwise>
+                        <c:out value="${visit.hunter.firstName} "/>
+                        <c:out value="${visit.hunter.surname}"/>
+                    </c:otherwise>
+                </c:choose>
             </td>
+
             <td>
                 <c:forEach items="${visit.mushrooms}" var="mushroom">
                     <my:a href="/${mushrooms_path}/read/${mushroom.id}"><c:out value="${mushroom.name} "/></my:a>

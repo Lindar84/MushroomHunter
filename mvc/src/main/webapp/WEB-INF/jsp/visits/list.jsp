@@ -40,10 +40,14 @@
                     <td>
                         <c:choose>
                             <c:when test="${sessionScope.user.admin || visit.hunter.id == sessionScope.user.id}" >
-                                <my:a href="/hunters/read/${visit.hunter.id}"><c:out value="${visit.hunter.userNickname}"/></my:a>
+                                <my:a href="/hunters/read/${visit.hunter.id}">
+                                    <c:out value="${visit.hunter.firstName} "/>
+                                    <c:out value="${visit.hunter.surname}"/>
+                                </my:a>
                             </c:when>
                             <c:otherwise>
-                                <c:out value="${visit.hunter.userNickname}"/>
+                                <c:out value="${visit.hunter.firstName} "/>
+                                <c:out value="${visit.hunter.surname}"/>
                             </c:otherwise>
                         </c:choose>
                     </td>

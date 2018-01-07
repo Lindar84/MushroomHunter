@@ -65,7 +65,7 @@ public class VisitController {
     }
 
     @RequestMapping(value = "/create", method = RequestMethod.GET)
-    public String registerUser(Model model, HttpServletRequest request) {
+    public String registerVisit(Model model, HttpServletRequest request) {
 
         MushroomHunterDTO hunter = (MushroomHunterDTO) request.getSession().getAttribute("user");
 
@@ -86,7 +86,6 @@ public class VisitController {
                            UriComponentsBuilder uriBuilder,
                            HttpServletRequest request) {
 
-        MushroomHunterDTO hunter = (MushroomHunterDTO) request.getSession().getAttribute("user");
 
         if (bindingResult.hasErrors()) {
             for (ObjectError ge : bindingResult.getGlobalErrors()) {
@@ -106,7 +105,7 @@ public class VisitController {
 
         VisitDTO visit = visitFacade.createVisit(formBean);
 
-        redirectAttributes.addFlashAttribute("alert_success", "Register visit " + formBean.getDate() + " succeeded");
+        redirectAttributes.addFlashAttribute("alert_success", "Register of new visit was successful");
         return "redirect:" + uriBuilder.path("/visits/read/{id}").buildAndExpand(visit.getId()).encode().toUriString();
     }
 
@@ -125,12 +124,12 @@ public class VisitController {
         VisitDTO visit = visitFacade.findById(id);
         visitFacade.deleteVisit(id);
         log.debug("delete visit({})", id);
-        redirectAttributes.addFlashAttribute("alert_success", "Visit \"" + visit.getNote() + "\" was deleted.");
+        redirectAttributes.addFlashAttribute("alert_success", "Visit was deleted.");
         return "redirect:" + uriBuilder.path("/visits").build().toUriString();
     }
 
     @RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
-    public String editUser(@PathVariable long id, Model model, HttpServletRequest request, UriComponentsBuilder uriBuilder, RedirectAttributes redirectAttributes) {
+    public String editVisit(@PathVariable long id, Model model, HttpServletRequest request, UriComponentsBuilder uriBuilder, RedirectAttributes redirectAttributes) {
 
         log.debug("[VISIT] Edit {}", id);
 
@@ -153,7 +152,6 @@ public class VisitController {
                          RedirectAttributes redirectAttributes,
                          HttpServletRequest request) {
 
-        MushroomHunterDTO hunter = (MushroomHunterDTO) request.getSession().getAttribute("user");
         formBean.setId(id);
 
         log.debug("Visit - update");
@@ -172,10 +170,10 @@ public class VisitController {
             return "visits/edit";
         }
 
-        log.debug("[HUNTER] Update: {}", formBean);
+        log.debug("[VISIT] Update: {}", formBean);
         visitFacade.updateVisit(formBean);
 
-        redirectAttributes.addFlashAttribute("alert_success", "Visit " + formBean.getNote() + " was updated");
+        redirectAttributes.addFlashAttribute("alert_success", "Visit was updated");
         return "redirect:" + uriBuilder.path("/visits/read/{id}").buildAndExpand(id).encode().toUriString();
     }
 

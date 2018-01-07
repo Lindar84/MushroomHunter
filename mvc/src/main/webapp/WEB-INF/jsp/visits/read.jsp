@@ -39,10 +39,19 @@
         <tbody>
         <tr>
             <td>
-                <my:a href="/hunters/read/${visit.hunter.id}"><c:out value="${visit.hunter.userNickname} "/></my:a>
+                <c:choose>
+                <c:when test="${sessionScope.user.admin || visit.hunter.id == sessionScope.user.id}" >
+                    <my:a href="/hunters/read/${visit.hunter.id}"><c:out value="${visit.hunter.firstName} "/>
+                        <c:out value="${visit.hunter.surname}"/></my:a>
+                </c:when>
+                <c:otherwise>
+                    <c:out value="${visit.hunter.firstName} "/>
+                        <c:out value="${visit.hunter.surname}"/>
+                </c:otherwise>
+            </c:choose>
             </td>
             <td>
-                <my:a href="/forests/read/${visit.hunter.id}"><c:out value="${visit.forest.name}"/></my:a>
+                <my:a href="/forests/read/${visit.forest.id}"><c:out value="${visit.forest.name}"/></my:a>
             </td>
             <td>
                 <c:forEach items="${visit.mushrooms}" var="mushroom">
@@ -56,27 +65,40 @@
                 <c:out value="${visit.date}"/>
             </td>
             <td>
-                <button class="glyphicon glyphicon-trash btn" onclick=" openModal(${visit.id}) ">
-                </button>
-                <my:modal_template suffix="${visit.id}" title="Delete visit">
-                  <jsp:attribute name="body">
-                      <strong>Are you sure you want to delete this visit?</strong>
-                  </jsp:attribute>
-                  <jsp:attribute name="footer">
-                      <button type="button" class="btn btn-secondary" data-dismiss="modal"
-                              onclick="closeModal(${visit.id})">Close
-                      </button>
-                    <form style="float: right; margin-left: 10px" method="post"
-                          action="${pageContext.request.contextPath}/${end}/delete/${visit.id}">
-                        <input type="submit" class="btn btn-primary" value="Delete"/>
-                    </form>
-                  </jsp:attribute>
-                </my:modal_template>
+            <c:choose>
+                <c:when test="${sessionScope.user.admin || visit.hunter.id == sessionScope.user.id}" >
+                    <button class="glyphicon glyphicon-trash btn" onclick=" openModal(${visit.id}) ">
+                    </button>
+                    <my:modal_template suffix="${visit.id}" title="Delete visit">
+                      <jsp:attribute name="body">
+                          <strong>Are you sure you want to delete this visit?</strong>
+                      </jsp:attribute>
+                      <jsp:attribute name="footer">
+                          <button type="button" class="btn btn-secondary" data-dismiss="modal"
+                                  onclick="closeModal(${visit.id})">Close
+                          </button>
+                        <form style="float: right; margin-left: 10px" method="post"
+                              action="${pageContext.request.contextPath}/${end}/delete/${visit.id}">
+                            <input type="submit" class="btn btn-primary" value="Delete"/>
+                        </form>
+                      </jsp:attribute>
+                    </my:modal_template>
+                </c:when>
+                <c:otherwise>
+                </c:otherwise>
+            </c:choose>
             </td>
+
             <td>
+                <c:choose>
+                    <c:when test="${visit.hunter.id == sessionScope.user.id}" >
                 <button class="glyphicon glyphicon-edit btn"
                         onclick="location.href='${pageContext.request.contextPath}/${end}/edit/${visit.id}'">
                 </button>
+                </c:when>
+                <c:otherwise>
+                </c:otherwise>
+                </c:choose>
             </td>
         </tr>
         </tbody>
