@@ -55,9 +55,13 @@ public class MushroomController {
 
 
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
-    public String delete(@PathVariable long id, Model model, UriComponentsBuilder uriBuilder, RedirectAttributes redirectAttributes) {
+    public String delete(@PathVariable long id, HttpServletRequest request, Model model, UriComponentsBuilder uriBuilder, RedirectAttributes redirectAttributes) {
         facade.deleteMushroom(id);
+
         log.debug("delete({})", id);
+        String res = Tools.redirectNonAdmin(request, uriBuilder, redirectAttributes);
+        if(res != null) return res;
+
         redirectAttributes.addFlashAttribute("alert_success", "Mushroom with id: \"" + id + "\" was deleted.");
         return "redirect:" + uriBuilder.path("/mushrooms").build().toUriString();
     }
@@ -97,7 +101,7 @@ public class MushroomController {
         log.debug("mushroomType()");
         String[] months = {"january", "february", "march", "april",
                             "may", "june", "july", "september", "october",
-                            "november", "decemer"};
+                            "november", "december"};
         return months;
     }
 
@@ -142,6 +146,9 @@ public class MushroomController {
     public String editUser(@PathVariable long id, Model model, HttpServletRequest request, UriComponentsBuilder uriBuilder, RedirectAttributes redirectAttributes) {
 
         log.debug("[Mushroom] Edit {}", id);
+        String res = Tools.redirectNonAdmin(request, uriBuilder, redirectAttributes);
+        if(res != null) return res;
+
         MushroomDTO mushroomDTO = facade.findMushroomById(id);
 
         model.addAttribute("mushroomEdit", mushroomDTO);

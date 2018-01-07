@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * TODO: create  javadoc
+ * The facade/wrapper "maps" to the APIs of the subsystem of the Forest.
  *
  * @author bencikpeter
  */
@@ -39,7 +39,7 @@ public class ForestFacadeImpl implements ForestFacade {
     @Override
     public ForestDTO findByName(String name) {
         Forest forest = service.findForestByName(name);
-        //TODO: logging?
+
         if (forest == null) return null;
         ForestDTO forestDTO = beanMappingService.mapTo(forest, ForestDTO.class);
         return forestDTO;
@@ -48,7 +48,7 @@ public class ForestFacadeImpl implements ForestFacade {
     @Override
     public ForestDTO findById(Long id) {
         Forest forest = service.findForestById(id);
-        //TODO: logging?
+
         if (forest == null) return null;
         ForestDTO forestDTO = beanMappingService.mapTo(forest, ForestDTO.class);
         return forestDTO;

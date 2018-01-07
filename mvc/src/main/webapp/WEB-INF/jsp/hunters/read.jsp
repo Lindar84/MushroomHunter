@@ -111,8 +111,8 @@
         <button class="btn btn-primary" onclick="location.href='${pageContext.request.contextPath}/visits/create'">
             Record a new visit
         </button>
-    </c:if>
 
+    </c:if>
     <%-- visits --%>
     <div style="margin-top:20px" >
         <my:visit_table_template tableName="Recorded visits"/>

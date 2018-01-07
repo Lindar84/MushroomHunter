@@ -11,7 +11,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
 /**
- * TODO: create  javadoc
+ * Dozer is a Java Bean to Java Bean mapper that recursively copies data from one object to another.
  *
  * @author bkompis
  */

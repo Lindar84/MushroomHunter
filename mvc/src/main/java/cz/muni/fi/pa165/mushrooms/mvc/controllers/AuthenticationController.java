@@ -117,7 +117,6 @@ public class AuthenticationController {
         if (!hunterFacade.authenticate(formBean)) {
             log.warn("wrong credentials: user={} password={}", formBean.getNickname(), formBean.getPassword());
             redirectAttributes.addFlashAttribute("alert_warning", "Login " + formBean.getNickname() + " failed ");
-
             return "redirect:" + uriBuilder.path("/auth").build().toUriString();
         }
         request.getSession().setAttribute("user", matchingUser);

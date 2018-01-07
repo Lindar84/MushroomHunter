@@ -38,13 +38,13 @@
           <tbody>
           <c:forEach items="${hunters}" var="hunter">
                 <tr>
-                  <td>
-                    <my:a href="/${end}/read/${hunter.id}"><c:out value="${hunter.firstName} "/><c:out value="${hunter.surname}"/> </my:a>
-                  </td>
-                  <td>
-                    <c:out value="${hunter.userNickname}"/>
-                  </td>
-                  <td>
+                    <td>
+                        <my:a href="/${end}/read/${hunter.id}"><c:out value="${hunter.firstName} "/><c:out value="${hunter.surname}"/> </my:a>
+                    </td>
+                    <td>
+                        <c:out value="${hunter.userNickname}"/>
+                    </td>
+                    <td>
                      <c:choose>
                         <c:when test="${hunter.admin}">
                             <span class= "glyphicon glyphicon-ok"> </span>
@@ -59,8 +59,7 @@
                     <button class="glyphicon glyphicon-trash btn" onclick=" openModal(${hunter.id}) ">
                     </button>
 
-
-                    <my:modal_template suffix="${hunter.id}" title="Delete user">
+                        <my:modal_template suffix="${hunter.id}" title="Delete user">
                       <jsp:attribute name="body">
                           <strong>Are you sure you want to delete mushroom hunter '<c:out value="${hunter.userNickname}"/>'?</strong>
                       </jsp:attribute>
@@ -70,7 +69,7 @@
                           </button>
                         <form style="float: right; margin-left: 10px" method="post"
                               action="${pageContext.request.contextPath}/${end}/delete/${hunter.id}">
-                          <input type="submit" class="btn btn-primary" value="Delete"/>
+                            <input type="submit" class="btn btn-primary" value="Delete"/>
                         </form>
                       </jsp:attribute>
                     </my:modal_template>
@@ -83,12 +82,12 @@
                     </my:protected>
                 </tr>
             </c:forEach>
-          </tbody>
+            </tbody>
         </table>
 
       <button class="btn btn-primary"
               onclick="location.href='${pageContext.request.contextPath}'">
-        Return
+          Return
       </button>
 
     </jsp:attribute>

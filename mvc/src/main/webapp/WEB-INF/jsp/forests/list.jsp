@@ -81,8 +81,8 @@
       </button>
 
       <button class="btn btn-primary"
-         onclick="location.href='${pageContext.request.contextPath}/${end}/new'">
-         New Forest
+              onclick="location.href='${pageContext.request.contextPath}/${end}/new'">
+        New Forest
       </button>
 
     </jsp:attribute>
